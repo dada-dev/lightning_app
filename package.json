@@ -6,10 +6,11 @@
         "start": "node server/index.js"
     },
     "dependencies": {
-        "express": "^4.17.1",
+        "@grpc/grpc-js": "^1.8.14",
+        "@grpc/proto-loader": "^0.7.7",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
-        "@grpc/grpc-js": "^1.8.14",
-        "@grpc/proto-loader": "^0.7.7"
+        "express": "^4.17.1",
+        "lightning-app": "file:"
     }
 }

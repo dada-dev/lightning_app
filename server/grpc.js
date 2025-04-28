@@ -1,10 +1,15 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
-// Load lnd rpc.proto file
-const packageDefinition = protoLoader.loadSync('rpc.proto', {});
+// Load lnd lightning.proto file
+const packageDefinition = protoLoader.loadSync(
+    path.join(__dirname, '..', 'lightning.proto'),
+    {}
+);
+
 const lnrpc = grpc.loadPackageDefinition(packageDefinition).lnrpc;
 
 // Load TLS cert
