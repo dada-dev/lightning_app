@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-// Load lnd lightning.proto file
+// Load lnd rpc.proto file
 const packageDefinition = protoLoader.loadSync(
-    path.join(__dirname, '..', 'lightning.proto'),
+    path.join(__dirname, '..', 'protos', 'rpc.proto'),
     {}
 );
 
