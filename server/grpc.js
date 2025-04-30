@@ -4,7 +4,17 @@ const fs = require('fs');
 require('dotenv').config();
 
 // Load lnd rpc.proto file
-const packageDefinition = protoLoader.loadSync('rpc.proto', {});
+const packageDefinition = protoLoader.loadSync(
+    __dirname + '/protos/lightning.proto', // assuming it's inside server/protos
+    {
+      keepCase: true,
+      longs: String,
+      enums: String,
+      defaults: true,
+      oneofs: true
+    }
+  );
+  
 const lnrpc = grpc.loadPackageDefinition(packageDefinition).lnrpc;
 
 // Load TLS cert

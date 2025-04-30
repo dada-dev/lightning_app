@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+
+*.log
+
+# VSCode
+.vscode/
+
+# macOS / Linux
+.DS_Store
+
+# Polar LND Macaroons/Certs (you'll reference them, but not commit them)
+*.macaroon
+*.cert
+
+# Logs and temp files
+logs/
+*.pid
