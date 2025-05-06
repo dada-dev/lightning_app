@@ -10,6 +10,7 @@ const packageDefinition = protoLoader.loadSync(
     {}
 );
 
+//log if there is an error loading the proto file
 if (!process.env.LND_TLS_CERT || !process.env.LND_MACAROON || !process.env.LND_GRPC_HOST) {
     throw new Error('Missing one or more required environment variables: LND_TLS_CERT, LND_MACAROON, LND_GRPC_HOST');
 }
