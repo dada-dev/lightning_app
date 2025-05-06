@@ -4,6 +4,175 @@
 <head>
     <meta charset="UTF-8">
     <title>Lightning Payment App</title>
+
+    <style>
+        :root {
+            --primary: #1f0472;
+            --primary-light: #12063f;
+            --dark: #1A1A1A;
+            --light: #F8F9FA;
+            --gray: #E9ECEF;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --section-spacing: 50%;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            margin-top: 40px;
+        }
+        
+        h1 {
+            font-size: 50px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        .section {
+            margin-bottom: var(--section-spacing);
+            padding: 24px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #666;
+        }
+        
+        .input-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(108, 59, 255, 0.1);
+        }
+        
+        button {
+            width: 50%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-light);
+        }
+        
+        button:disabled {
+            background-color: #CCCCCC;
+            cursor: not-allowed;
+        }
+        
+        .qrcode-container {
+            margin: var(--section-spacing) 0;
+            padding: 24px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #qrcode {
+            margin: 16px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .sats-label {
+            position: relative;
+        }
+        
+        .sats-label::after {
+            content: "sats";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .status {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #E6F7EE;
+            color: #00A55E;
+        }
+        
+        .error {
+            background-color: #FFEBEE;
+            color: #D32F2F;
+        }
+        
+        footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>

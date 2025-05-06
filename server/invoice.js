@@ -1,3 +1,4 @@
+const { Client } = require('@grpc/grpc-js');
 const lnd = require('./grpc');
 
 // Create Invoice
@@ -11,7 +12,17 @@ async function createInvoice(amountSats) {
             if (err) {
                 return reject(err);
             }
-            resolve(response);
+            
+            // Log the response for debugging
+            console.log("invoice response:", response);
+            
+            //to return the payment request and r_hash
+            resolve({
+                payment_request: response.payment_request,
+                r_hash: response.rHash
+                ? Buffer.from(response.rHash).toString('hex')
+                : null
+            });
         });
     });
 }
@@ -21,7 +32,14 @@ function subscribeToInvoices() {
     const call = lnd.SubscribeInvoices({});
     call.on('data', (invoice) => {
         if (invoice.settled) {
-            console.log(`Invoice settled! ${invoice.memo}`);
+            const hash = Buffer.from(invoice.r_hash).toString('hex');
+            console.log(`Invoice settled! ${invoice.memo}, hash: ${hash}`);
+
+            const ws = Clients.get(hash);
+            if (ws && ws.readyState === ws.OPEN) {
+                ws.send(JSON.stringify({ paid: true }));
+                Clients.delete(hash);
+            }
         }
     });
     call.on('error', console.error);
