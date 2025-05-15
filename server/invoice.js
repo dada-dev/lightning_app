@@ -12,16 +12,16 @@ async function createInvoice(amountSats) {
             if (err) {
                 return reject(err);
             }
-            
+
             // Log the response for debugging
             console.log("invoice response:", response);
-            
+
             //to return the payment request and r_hash
             resolve({
                 payment_request: response.payment_request,
                 r_hash: response.rHash
-                ? Buffer.from(response.rHash).toString('hex')
-                : null
+                    ? Buffer.from(response.rHash).toString('hex')
+                    : null
             });
         });
     });
@@ -31,18 +31,22 @@ async function createInvoice(amountSats) {
 function subscribeToInvoices() {
     const call = lnd.SubscribeInvoices({});
     call.on('data', (invoice) => {
+        console.log("Invoice update received:", invoice);
         if (invoice.settled) {
-            const hash = Buffer.from(invoice.r_hash).toString('hex');
-            console.log(`Invoice settled! ${invoice.memo}, hash: ${hash}`);
+            if (invoice.r_hash) {
+                const hash = Buffer.from(invoice.r_hash).toString('hex');
+                console.log(`Invoice settled! ${invoice.memo}, hash: ${hash}`);
 
-            const ws = Clients.get(hash);
-            if (ws && ws.readyState === ws.OPEN) {
-                ws.send(JSON.stringify({ paid: true }));
-                Clients.delete(hash);
+                const ws = Clients.get(hash);
+                if (ws && ws.readyState === ws.OPEN) {
+                    ws.send(JSON.stringify({ paid: true }));
+                    Clients.delete(hash);
+                }
+            } else {
+                console.warn("Missing r_hash on settled invoice:", invoice);
             }
         }
     });
-    call.on('error', console.error);
 }
 
 module.exports = { createInvoice, subscribeToInvoices };
