@@ -4,15 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Lightning Payment App</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Pay with Lightning!</h1>
-    <input type="number" id="amount" placeholder="Amount in sats" />
-    <button id="pay-button">Generate Invoice</button>
-    <div id="qrcode"></div>
+    <div class="container">
+        <h1>Pay with Lightning!</h1>
+        <input type="number" id="amount" placeholder="Amount in sats" />
+        <button id="pay-button">Generate Invoice</button>
 
-    <script src="app.js"></script>
+        <div id="qrcode"></div>
+
+        <!-- Payment section -->
+        <div class="payment-section" style="display: none;">
+            <h3>Send payment:</h3>
+            <button id="pay-invoice-button">Pay</button>
+            <div id="payment-status"></div>
+        </div>
+
+        <script src="app.js"></script>
 </body>
 
 </html>
